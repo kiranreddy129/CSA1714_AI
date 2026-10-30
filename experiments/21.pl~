@@ -1,0 +1,34 @@
+
+% Forward Chaining Program
+
+% Declare dynamic predicate
+:- dynamic fact/1.
+
+% Initial Facts
+fact(has_fever).
+fact(has_cough).
+
+% Rules
+rule(flu) :-
+    fact(has_fever),
+    fact(has_cough).
+
+rule(needs_rest) :-
+    fact(flu).
+
+rule(consult_doctor) :-
+    fact(has_fever),
+    fact(has_cough).
+
+% Forward Chaining
+forward :-
+    rule(NewFact),
+    \+ fact(NewFact),
+    assertz(fact(NewFact)),
+    write('New Fact Derived: '),
+    write(NewFact), nl,
+    fail.
+
+forward :-
+    write('Forward Chaining Completed.'), nl.
+
